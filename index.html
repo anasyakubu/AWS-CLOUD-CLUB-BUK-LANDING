@@ -31,7 +31,12 @@
         margin: 0;
         padding: 0;
       }
+      *::-webkit-scrollbar {
+        display: none;
+      }
       html {
+        overflow-x: hidden;
+        /* overflow-y: hidden; */
         scroll-behavior: smooth;
         font-size: 16px;
       }
@@ -532,6 +537,10 @@
       /* ══════════════════════════════════════
    MARQUEE
 ══════════════════════════════════════ */
+
+      .bw-image {
+        filter: grayscale(100%);
+      }
       .marquee-section {
         padding: 0.9rem 0;
         border-top: 1px solid var(--border);
@@ -1584,7 +1593,8 @@
       <button class="close-menu" id="closeMenu">✕</button>
       <a href="#about" onclick="closeMobile()">About</a>
       <a href="#whatwedo" onclick="closeMobile()">What We Do</a>
-      <a href="#events" onclick="closeMobile()">Events</a>
+      <!-- <a href="#events" onclick="closeMobile()">Events</a> -->
+      <a href="events.html">Events</a>
       <a href="#team" onclick="closeMobile()">Team</a>
       <a href="#join" onclick="closeMobile()">Join Us</a>
     </div>
@@ -1604,7 +1614,8 @@
       <div class="nav-links">
         <a href="#about">About</a>
         <a href="#whatwedo">Programs</a>
-        <a href="#events">Events</a>
+        <!-- <a href="#events">Events</a> -->
+        <a href="events.html">Events</a>
         <a href="#team">Team</a>
         <a href="#join" class="nav-join">Join Us</a>
       </div>
@@ -1926,6 +1937,7 @@
     </section>
 
     <!-- ═══════ EVENTS ═══════ -->
+    <!-- ═══════ EVENTS ═══════ -->
     <section class="events" id="events">
       <div class="events-flex">
         <div>
@@ -1935,79 +1947,48 @@
           </h2>
           <br />
 
-          <div class="event-item reveal reveal-d1">
-            <div class="event-date">
-              <span class="event-day">15</span
-              ><span class="event-mon">Mar</span>
-            </div>
-            <div class="event-info">
-              <h4>Build Day — S3 Static Hosting</h4>
-              <p>Hands-on workshop deploying static websites on Amazon S3.</p>
-              <span class="event-badge upcoming">Upcoming</span>
-            </div>
-          </div>
-
-          <div class="event-item reveal reveal-d2">
-            <div class="event-date">
-              <span class="event-day">28</span
-              ><span class="event-mon">Apr</span>
-            </div>
-            <div class="event-info">
-              <h4>AWS Certification Sprint</h4>
-              <p>
-                Cloud Practitioner intensive study weekend — prep & mock exams.
-              </p>
-              <span class="event-badge upcoming">Upcoming</span>
+          <div id="homeEventsContainer">
+            <!-- Events will be loaded dynamically here -->
+            <div class="event-item reveal reveal-d1" id="eventLoading1">
+              <div class="event-date">
+                <span class="event-day">--</span
+                ><span class="event-mon">---</span>
+              </div>
+              <div class="event-info">
+                <h4>Loading events...</h4>
+                <p>Please wait while we fetch the latest events.</p>
+              </div>
             </div>
           </div>
 
-          <div class="event-item reveal reveal-d3">
-            <div class="event-date">
-              <span class="event-day">12</span
-              ><span class="event-mon">Jan</span>
-            </div>
-            <div class="event-info">
-              <h4>Cloud Club Kickoff 2025</h4>
-              <p>
-                Official opening ceremony with 150+ members and keynote
-                speakers.
-              </p>
-              <span class="event-badge past">Completed</span>
-            </div>
-          </div>
-
-          <div class="event-item reveal reveal-d4">
-            <div class="event-date">
-              <span class="event-day">05</span
-              ><span class="event-mon">Dec</span>
-            </div>
-            <div class="event-info">
-              <h4>Serverless Workshop</h4>
-              <p>Building APIs with AWS Lambda and API Gateway from scratch.</p>
-              <span class="event-badge past">Completed</span>
-            </div>
+          <div class="reveal reveal-d5" style="margin-top: 2rem">
+            <a
+              href="events.html"
+              class="btn-outline"
+              style="display: inline-block"
+            >
+              View All Events →
+            </a>
           </div>
         </div>
 
-        <!-- Featured Event -->
-        <div class="featured-event reveal reveal-d2">
+        <!-- Featured Event (will be updated dynamically) -->
+        <div class="featured-event reveal reveal-d2" id="featuredEvent">
           <p class="fe-label">Featured Event</p>
-          <h3 class="fe-title">Build Day:<br />Host on AWS S3</h3>
-          <p class="fe-desc">
-            Our flagship Build Day is back. In one afternoon, you'll go from
-            zero to a live, publicly accessible website hosted on Amazon S3. No
-            experience required — just bring your laptop and curiosity.
+          <h3 class="fe-title" id="featuredTitle">Loading featured event...</h3>
+          <p class="fe-desc" id="featuredDesc">
+            Please wait while we fetch the latest events.
           </p>
-          <div class="fe-meta">
-            <div class="fe-meta-item">📅 <span>March 15, 2025</span></div>
-            <div class="fe-meta-item">📍 <span>BUK ICT Center</span></div>
-            <div class="fe-meta-item">⏰ <span>10:00 AM – 3:00 PM</span></div>
-            <div class="fe-meta-item">
-              👥 <span>Open to All BUK Students</span>
-            </div>
+          <div class="fe-meta" id="featuredMeta">
+            <div class="fe-meta-item">📅 <span>Loading...</span></div>
+            <div class="fe-meta-item">📍 <span>Loading...</span></div>
           </div>
-          <a href="#join" class="btn-gold" style="display: inline-block"
-            >Reserve Your Spot →</a
+          <a
+            href="#"
+            class="btn-gold"
+            style="display: inline-block"
+            id="featuredBtn"
+            >View Event Details →</a
           >
         </div>
       </div>
@@ -2039,11 +2020,12 @@
           <div class="team-card lead reveal reveal-d1">
             <div class="tc-img">
               <div class="tc-avatar-ring"></div>
-              <div class="tc-initial">A</div>
+              <!-- <div class="tc-initial">A</div> -->
+              <img class="bw-image" src="assets/Habiba.jpg" />
             </div>
             <div class="tc-body">
-              <div class="tc-name">Abdulrahman Musa</div>
-              <div class="tc-role">Club President</div>
+              <div class="tc-name">Habiba Jibril Yahaya</div>
+              <div class="tc-role">Club Captain</div>
               <span class="tc-badge">Lead Captain</span>
             </div>
           </div>
@@ -2051,24 +2033,26 @@
           <div class="team-card lead reveal reveal-d2">
             <div class="tc-img">
               <div class="tc-avatar-ring"></div>
-              <div class="tc-initial">F</div>
+              <!-- <div class="tc-initial">F</div> -->
+              <img class="bw-image" src="assets/Anas.jpg" />
             </div>
             <div class="tc-body">
-              <div class="tc-name">Fatima Suleiman</div>
-              <div class="tc-role">Vice President</div>
-              <span class="tc-badge">Co-Captain</span>
+              <div class="tc-name">Anas Yakubu</div>
+              <div class="tc-role">Backend Engineer</div>
+              <span class="tc-badge">Technical Lead</span>
             </div>
           </div>
 
           <div class="team-card lead reveal reveal-d3">
             <div class="tc-img">
               <div class="tc-avatar-ring"></div>
-              <div class="tc-initial">Y</div>
+              <!-- <div class="tc-initial">Y</div> -->
+              <img class="bw-image" src="assets/Aisha.jpg" />
             </div>
             <div class="tc-body">
-              <div class="tc-name">Yusuf Ibrahim</div>
-              <div class="tc-role">Technical Lead</div>
-              <span class="tc-badge">Cloud Architect</span>
+              <div class="tc-name">Aisha Mujahid</div>
+              <!-- <div class="tc-role"></div> -->
+              <span class="tc-badge">Event Manager</span>
             </div>
           </div>
         </div>
@@ -2081,19 +2065,20 @@
               <div class="tc-initial" style="font-size: 2.5rem">Z</div>
             </div>
             <div class="tc-body">
-              <div class="tc-name">Zainab Abubakar</div>
-              <div class="tc-role">Events & Outreach Lead</div>
+              <div class="tc-name">Salma Naseer</div>
+              <div class="tc-role">Graphic Designer</div>
             </div>
           </div>
 
           <div class="team-card member reveal reveal-d2">
             <div class="tc-img" style="aspect-ratio: 1">
               <div class="tc-avatar-ring"></div>
-              <div class="tc-initial" style="font-size: 2.5rem">I</div>
+              <!-- <div class="tc-initial" style="font-size: 2.5rem">I</div> -->
+              <img class="bw-image" src="assets/Abbas.jpg" />
             </div>
             <div class="tc-body">
-              <div class="tc-name">Ibrahim Aliyu</div>
-              <div class="tc-role">Community & Growth Lead</div>
+              <div class="tc-name">Abbas Yakubu</div>
+              <div class="tc-role">Event Manager</div>
             </div>
           </div>
 
@@ -2103,12 +2088,12 @@
               <div class="tc-initial" style="font-size: 2.5rem">H</div>
             </div>
             <div class="tc-body">
-              <div class="tc-name">Hauwa Bello</div>
-              <div class="tc-role">Design & Creative Lead</div>
+              <div class="tc-name">Rabi Usman</div>
+              <div class="tc-role">Community Manager</div>
             </div>
           </div>
 
-          <div class="team-card member reveal reveal-d4">
+          <!-- <div class="team-card member reveal reveal-d4">
             <div class="tc-img" style="aspect-ratio: 1">
               <div class="tc-avatar-ring"></div>
               <div class="tc-initial" style="font-size: 2.5rem">M</div>
@@ -2117,9 +2102,9 @@
               <div class="tc-name">Muhammad Garba</div>
               <div class="tc-role">DevOps & Labs Lead</div>
             </div>
-          </div>
+          </div> -->
 
-          <div class="team-card member reveal reveal-d5">
+          <!-- <div class="team-card member reveal reveal-d5">
             <div class="tc-img" style="aspect-ratio: 1">
               <div class="tc-avatar-ring"></div>
               <div class="tc-initial" style="font-size: 2.5rem">A</div>
@@ -2128,10 +2113,10 @@
               <div class="tc-name">Aisha Usman</div>
               <div class="tc-role">Secretary & Comms Lead</div>
             </div>
-          </div>
+          </div> -->
         </div>
 
-        <div class="reveal" style="text-align: center; margin-top: 2.5rem">
+        <!-- <div class="reveal" style="text-align: center; margin-top: 2.5rem">
           <p
             style="
               font-size: 0.8rem;
@@ -2164,7 +2149,7 @@
               >.tc-img</code
             >
           </p>
-        </div>
+        </div> -->
       </div>
     </section>
 
@@ -2272,6 +2257,160 @@
     <!-- ═══════════════════════════════════
    JAVASCRIPT
 ═══════════════════════════════════ -->
+
+    <script>
+      /* ═══════ EVENTS API INTEGRATION ═══════ */
+      const API_BASE_URL = "https://aws-buk-event-manager-api.vercel.app"; // Update this with your actual API URL
+
+      async function loadHomeEvents() {
+        try {
+          const response = await fetch(`${API_BASE_URL}/events`);
+          const data = await response.json();
+
+          if (data.success && data.data.length > 0) {
+            const events = data.data;
+            displayHomeEvents(events);
+          } else {
+            showNoEvents();
+          }
+        } catch (error) {
+          console.error("Error loading events:", error);
+          showNoEvents();
+        }
+      }
+
+      function displayHomeEvents(events) {
+        // Filter upcoming events (not past)
+        const now = new Date();
+        const upcomingEvents = events
+          .filter((event) => new Date(event.endDate) > now)
+          .slice(0, 4);
+        const featuredEvent = events[0]; // First event as featured
+
+        // Display event list
+        const container = document.getElementById("homeEventsContainer");
+        container.innerHTML = "";
+
+        if (upcomingEvents.length === 0) {
+          container.innerHTML = `
+      <div class="event-item reveal reveal-d1">
+        <div class="event-date">
+          <span class="event-day">--</span><span class="event-mon">---</span>
+        </div>
+        <div class="event-info">
+          <h4>No upcoming events</h4>
+          <p>Check back soon for new events!</p>
+        </div>
+      </div>
+    `;
+        } else {
+          upcomingEvents.forEach((event, index) => {
+            const startDate = new Date(event.startDate);
+            const day = startDate.getDate();
+            const month = startDate.toLocaleString("default", {
+              month: "short",
+            });
+            const isPast = new Date(event.endDate) < now;
+
+            const eventItem = document.createElement("div");
+            eventItem.className = `event-item reveal reveal-d${index + 1}`;
+            eventItem.innerHTML = `
+        <div class="event-date">
+          <span class="event-day">${day}</span>
+          <span class="event-mon">${month}</span>
+        </div>
+        <div class="event-info">
+          <h4>${event.title}</h4>
+          <p>${event.description.substring(0, 80)}${event.description.length > 80 ? "..." : ""}</p>
+          <span class="event-badge ${isPast ? "past" : "upcoming"}">
+            ${isPast ? "Completed" : "Upcoming"}
+          </span>
+        </div>
+      `;
+            eventItem.addEventListener("click", () => {
+              window.location.href = `events.html?event=${event._id}`;
+            });
+            eventItem.style.cursor = "pointer";
+            container.appendChild(eventItem);
+          });
+        }
+
+        // Update featured event
+        if (featuredEvent) {
+          const startDate = new Date(featuredEvent.startDate);
+          const endDate = new Date(featuredEvent.endDate);
+          const dateStr = startDate.toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          });
+          const timeStr = startDate.toLocaleTimeString("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+
+          document.getElementById("featuredTitle").textContent =
+            featuredEvent.title;
+          document.getElementById("featuredDesc").textContent =
+            featuredEvent.description.substring(0, 120) +
+            (featuredEvent.description.length > 120 ? "..." : "");
+
+          const meta = document.getElementById("featuredMeta");
+          meta.innerHTML = `
+      <div class="fe-meta-item">📅 <span>${dateStr} at ${timeStr}</span></div>
+      <div class="fe-meta-item">📍 <span>${featuredEvent.location}</span></div>
+      <div class="fe-meta-item">⏰ <span>${getEventDuration(startDate, endDate)}</span></div>
+      <div class="fe-meta-item">👥 <span>${featuredEvent.capacity} spots</span></div>
+    `;
+
+          const featuredBtn = document.getElementById("featuredBtn");
+          featuredBtn.href = `events.html?event=${featuredEvent._id}`;
+        }
+      }
+
+      function getEventDuration(start, end) {
+        const diffMs = end - start;
+        const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+        const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+
+        if (diffHrs > 24) {
+          const days = Math.floor(diffHrs / 24);
+          return `${days} day${days > 1 ? "s" : ""}`;
+        } else if (diffHrs > 0) {
+          return `${diffHrs} hour${diffHrs > 1 ? "s" : ""}${diffMins > 0 ? ` ${diffMins}min` : ""}`;
+        } else {
+          return `${diffMins} minutes`;
+        }
+      }
+
+      function showNoEvents() {
+        const container = document.getElementById("homeEventsContainer");
+        container.innerHTML = `
+    <div class="event-item reveal reveal-d1">
+      <div class="event-date">
+        <span class="event-day">--</span><span class="event-mon">---</span>
+      </div>
+      <div class="event-info">
+        <h4>Unable to load events</h4>
+        <p>Please check back later or visit our events page.</p>
+      </div>
+    </div>
+  `;
+
+        document.getElementById("featuredTitle").textContent = "Featured Event";
+        document.getElementById("featuredDesc").textContent =
+          "Visit our events page to see all upcoming AWS Cloud Club activities.";
+        document.getElementById("featuredMeta").innerHTML = `
+    <div class="fe-meta-item">📅 <span>Check events page</span></div>
+    <div class="fe-meta-item">📍 <span>Bayero University Kano</span></div>
+  `;
+        document.getElementById("featuredBtn").href = "events.html";
+      }
+
+      // Load events when page loads
+      document.addEventListener("DOMContentLoaded", loadHomeEvents);
+    </script>
+
     <script>
       /* Cursor */
       const cur = document.getElementById("cur");

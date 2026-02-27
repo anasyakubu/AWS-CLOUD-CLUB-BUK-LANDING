@@ -1,0 +1,1330 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Event · Admin · AWS Cloud Club BUK</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ══════════════════════════════════════
+   ROOT & RESET
+══════════════════════════════════════ */
+      :root {
+        --navy: #0a1628;
+        --navy2: #0f2040;
+        --navy3: #162b54;
+        --gold: #f5a623;
+        --gold2: #ffcc66;
+        --white: #e8edf5;
+        --muted: #6d8aad;
+        --card: rgba(255, 255, 255, 0.03);
+        --card2: rgba(255, 255, 255, 0.06);
+        --border: rgba(245, 166, 35, 0.18);
+        --border2: rgba(255, 255, 255, 0.07);
+        --success: #22c55e;
+        --error: #ef4444;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--navy);
+        color: var(--white);
+        font-family: "DM Sans", sans-serif;
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      button {
+        cursor: pointer;
+        font-family: "DM Sans", sans-serif;
+      }
+
+      /* noise */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+        opacity: 0.025;
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      /* ══════ CURSOR ══════ */
+      .cur,
+      .cur-r {
+        position: fixed;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        transform: translate(-50%, -50%);
+      }
+      .cur {
+        width: 9px;
+        height: 9px;
+        background: var(--gold);
+        transition: transform 0.1s;
+      }
+      .cur-r {
+        width: 34px;
+        height: 34px;
+        border: 1.5px solid rgba(245, 166, 35, 0.5);
+        transition: all 0.15s ease;
+      }
+
+      /* ══════ NAV ══════ */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 5vw;
+        background: rgba(10, 22, 40, 0.75);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+      .logo-mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--gold), #e8960d);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .logo-mark svg {
+        width: 20px;
+        height: 20px;
+        fill: var(--navy);
+      }
+      .logo-text {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 0.92rem;
+        letter-spacing: 0.03em;
+      }
+      .logo-text span {
+        color: var(--gold);
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      .nav-right a {
+        font-size: 0.82rem;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        transition: color 0.2s;
+      }
+      .nav-right a:hover,
+      .nav-right a.active {
+        color: var(--white);
+      }
+      .nav-back {
+        padding: 0.45rem 1.1rem;
+        border: 1px solid var(--border2);
+        border-radius: 40px;
+        font-size: 0.78rem;
+        color: var(--muted);
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .nav-back:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+
+      /* ══════ PAGE HERO ══════ */
+      .page-hero {
+        padding: 9rem 5vw 3rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .page-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(245, 166, 35, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(245, 166, 35, 0.04) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+      }
+      .glow {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        pointer-events: none;
+      }
+      .glow.g1 {
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(245, 166, 35, 0.08),
+          transparent 70%
+        );
+        top: -20%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .page-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.32rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: 40px;
+        background: rgba(245, 166, 35, 0.06);
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1.4rem;
+      }
+      .page-eyebrow .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--gold);
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.4;
+          transform: scale(0.7);
+        }
+      }
+      .page-h1 {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        font-weight: 800;
+        line-height: 0.97;
+        letter-spacing: -0.03em;
+        margin-bottom: 1rem;
+      }
+      .page-h1 em {
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        color: var(--gold);
+        font-weight: 400;
+      }
+      .page-sub {
+        font-size: 1rem;
+        color: var(--muted);
+        max-width: 480px;
+        margin: 0 auto;
+        font-weight: 300;
+        line-height: 1.75;
+      }
+
+      /* ══════ CREATE EVENT FORM ══════ */
+      .create-section {
+        padding: 2rem 5vw 8rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .form-card {
+        background: var(--card);
+        border: 1px solid var(--border2);
+        border-radius: 28px;
+        padding: 2.5rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .form-group {
+        margin-bottom: 1.8rem;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.6rem;
+        font-weight: 500;
+      }
+
+      .form-label span {
+        color: var(--error);
+        margin-left: 0.2rem;
+      }
+
+      .form-input,
+      .form-textarea,
+      .form-select {
+        width: 100%;
+        padding: 0.9rem 1.2rem;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border2);
+        border-radius: 16px;
+        color: var(--white);
+        font-size: 0.95rem;
+        font-family: "DM Sans", sans-serif;
+        transition: all 0.25s ease;
+        outline: none;
+      }
+
+      .form-textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .form-input:focus,
+      .form-textarea:focus,
+      .form-select:focus {
+        border-color: var(--gold);
+        background: rgba(245, 166, 35, 0.04);
+        box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.1);
+      }
+
+      .form-input::placeholder,
+      .form-textarea::placeholder {
+        color: var(--muted);
+        opacity: 0.5;
+      }
+
+      .form-input.error,
+      .form-textarea.error,
+      .form-select.error {
+        border-color: var(--error);
+      }
+
+      .form-error {
+        font-size: 0.72rem;
+        color: var(--error);
+        margin-top: 0.35rem;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+
+      /* file upload */
+      .file-upload-area {
+        border: 2px dashed var(--border2);
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        position: relative;
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .file-upload-area:hover {
+        border-color: var(--gold);
+        background: rgba(245, 166, 35, 0.04);
+      }
+
+      .file-upload-area.has-file {
+        border-color: var(--success);
+        background: rgba(34, 197, 94, 0.04);
+      }
+
+      .file-upload-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.8rem;
+        opacity: 0.5;
+      }
+
+      .file-upload-text {
+        font-size: 0.9rem;
+        color: var(--muted);
+        margin-bottom: 0.5rem;
+      }
+
+      .file-upload-hint {
+        font-size: 0.7rem;
+        color: var(--muted);
+        opacity: 0.6;
+      }
+
+      .file-upload-input {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      .file-preview {
+        display: none;
+        margin-top: 1rem;
+        padding: 0.8rem;
+        background: var(--card2);
+        border-radius: 12px;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .file-preview.show {
+        display: flex;
+      }
+
+      .file-preview-icon {
+        font-size: 1.5rem;
+      }
+
+      .file-preview-info {
+        flex: 1;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .file-preview-name {
+        color: var(--white);
+        font-weight: 500;
+        margin-bottom: 0.2rem;
+      }
+
+      .file-preview-remove {
+        padding: 0.3rem 0.8rem;
+        background: transparent;
+        border: 1px solid var(--border2);
+        border-radius: 20px;
+        color: var(--muted);
+        font-size: 0.7rem;
+        transition: all 0.2s;
+      }
+
+      .file-preview-remove:hover {
+        border-color: var(--error);
+        color: var(--error);
+      }
+
+      /* capacity input with stepper */
+      .capacity-wrapper {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border2);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+
+      .capacity-input {
+        flex: 1;
+        padding: 0.9rem 1.2rem;
+        background: transparent;
+        border: none;
+        color: var(--white);
+        font-size: 0.95rem;
+        font-family: "DM Sans", sans-serif;
+        outline: none;
+        text-align: center;
+      }
+
+      .capacity-btn {
+        padding: 0.9rem 1.2rem;
+        background: transparent;
+        border: none;
+        color: var(--muted);
+        font-size: 1.2rem;
+        font-weight: 600;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+
+      .capacity-btn:hover {
+        color: var(--gold);
+        background: rgba(245, 166, 35, 0.04);
+      }
+
+      .capacity-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+
+      /* date inputs */
+      .datetime-input {
+        color-scheme: dark;
+      }
+
+      input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+        filter: invert(0.8);
+        cursor: pointer;
+      }
+
+      /* action buttons */
+      .form-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border2);
+      }
+
+      .btn-primary {
+        flex: 1;
+        padding: 1rem 2rem;
+        background: var(--gold);
+        color: var(--navy);
+        border: none;
+        border-radius: 50px;
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        letter-spacing: 0.04em;
+        transition: all 0.25s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary:hover:not(:disabled) {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 40px rgba(245, 166, 35, 0.35);
+      }
+
+      .btn-primary:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .btn-secondary {
+        padding: 1rem 2rem;
+        background: transparent;
+        border: 1px solid var(--border2);
+        color: var(--muted);
+        border-radius: 50px;
+        font-size: 0.9rem;
+        transition: all 0.25s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .btn-secondary:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+
+      /* success state */
+      .success-state {
+        text-align: center;
+        padding: 3rem 2rem;
+        animation: fadeIn 0.5s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .success-icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .success-state h3 {
+        font-family: "Syne", sans-serif;
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin-bottom: 0.8rem;
+      }
+
+      .success-state p {
+        color: var(--muted);
+        margin-bottom: 2rem;
+      }
+
+      .success-details {
+        background: var(--card2);
+        border: 1px solid var(--border2);
+        border-radius: 16px;
+        padding: 1.2rem;
+        margin: 1.5rem 0;
+        text-align: left;
+      }
+
+      .success-details-item {
+        display: flex;
+        gap: 1rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--border2);
+      }
+
+      .success-details-item:last-child {
+        border-bottom: none;
+      }
+
+      .success-details-label {
+        width: 100px;
+        font-size: 0.8rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .success-details-value {
+        flex: 1;
+        font-size: 0.9rem;
+        color: var(--white);
+      }
+
+      .btn-success {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        background: var(--gold);
+        color: var(--navy);
+        border: none;
+        border-radius: 50px;
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: all 0.25s ease;
+      }
+
+      .btn-success:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 14px 40px rgba(245, 166, 35, 0.35);
+      }
+
+      /* spinner */
+      .spinner {
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(10, 22, 40, 0.3);
+        border-top-color: var(--navy);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        display: inline-block;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* toast */
+      .toast-container {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 9000;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+        pointer-events: none;
+      }
+      .toast {
+        padding: 0.85rem 1.3rem;
+        border-radius: 14px;
+        font-size: 0.83rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        pointer-events: all;
+        animation: toastIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        max-width: 320px;
+      }
+      .toast.success {
+        background: #16301c;
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        color: #22c55e;
+      }
+      .toast.error {
+        background: #2d1515;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        color: #ef4444;
+      }
+      .toast.info {
+        background: #1a2a3e;
+        border: 1px solid var(--border);
+        color: var(--gold);
+      }
+      .toast.fade-out {
+        animation: toastOut 0.35s ease forwards;
+      }
+      @keyframes toastIn {
+        from {
+          opacity: 0;
+          transform: translateX(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes toastOut {
+        to {
+          opacity: 0;
+          transform: translateX(40px);
+        }
+      }
+
+      /* responsive */
+      @media (max-width: 700px) {
+        .form-row {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+        .form-card {
+          padding: 1.8rem;
+        }
+        .form-actions {
+          flex-direction: column;
+        }
+        .btn-primary,
+        .btn-secondary {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .page-h1 {
+          font-size: 2.2rem;
+        }
+        .form-card {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- CURSOR -->
+    <div class="cur" id="cur"></div>
+    <div class="cur-r" id="curR"></div>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- NAV -->
+    <nav>
+      <a href="index.html" class="nav-logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"
+            />
+          </svg>
+        </div>
+        <div class="logo-text">AWS Cloud Club <span>BUK</span></div>
+      </a>
+      <div class="nav-right">
+        <a href="events.html" class="nav-back">← View Events</a>
+        <a href="create-event.html" class="active">Create Event</a>
+      </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+      <div class="glow g1"></div>
+      <div class="page-eyebrow"><span class="dot"></span> Admin Dashboard</div>
+      <h1 class="page-h1">Create a New <em>Event</em></h1>
+      <p class="page-sub">
+        Fill in the details below to create a new event. All fields marked with
+        * are required.
+      </p>
+    </div>
+
+    <!-- CREATE EVENT FORM -->
+    <section class="create-section">
+      <div class="form-card" id="createForm">
+        <!-- Form Container -->
+        <div id="formContainer">
+          <form id="eventForm" onsubmit="createEvent(event)">
+            <!-- Title -->
+            <div class="form-group">
+              <label class="form-label">Event Title <span>*</span></label>
+              <input
+                type="text"
+                class="form-input"
+                id="title"
+                placeholder="e.g., AWS Build Day 2025"
+                required
+              />
+              <div class="form-error" id="titleError"></div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+              <label class="form-label">Description <span>*</span></label>
+              <textarea
+                class="form-textarea"
+                id="description"
+                placeholder="Describe the event, what attendees will learn, prerequisites, etc."
+                required
+              ></textarea>
+              <div class="form-error" id="descriptionError"></div>
+            </div>
+
+            <!-- Date Row -->
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label"
+                  >Start Date & Time <span>*</span></label
+                >
+                <input
+                  type="datetime-local"
+                  class="form-input datetime-input"
+                  id="startDate"
+                  required
+                />
+                <div class="form-error" id="startDateError"></div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">End Date & Time <span>*</span></label>
+                <input
+                  type="datetime-local"
+                  class="form-input datetime-input"
+                  id="endDate"
+                  required
+                />
+                <div class="form-error" id="endDateError"></div>
+              </div>
+            </div>
+
+            <!-- Location and Capacity Row -->
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Location <span>*</span></label>
+                <input
+                  type="text"
+                  class="form-input"
+                  id="location"
+                  placeholder="e.g., BUK ICT Center"
+                  required
+                />
+                <div class="form-error" id="locationError"></div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Capacity <span>*</span></label>
+                <div class="capacity-wrapper">
+                  <button
+                    type="button"
+                    class="capacity-btn"
+                    onclick="decrementCapacity()"
+                    id="decrementBtn"
+                  >
+                    −
+                  </button>
+                  <input
+                    type="number"
+                    class="capacity-input"
+                    id="capacity"
+                    value="50"
+                    min="1"
+                    max="1000"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="capacity-btn"
+                    onclick="incrementCapacity()"
+                    id="incrementBtn"
+                  >
+                    +
+                  </button>
+                </div>
+                <div class="form-error" id="capacityError"></div>
+              </div>
+            </div>
+
+            <!-- Banner Upload -->
+            <div class="form-group">
+              <label class="form-label">Event Banner (Optional)</label>
+              <div class="file-upload-area" id="fileUploadArea">
+                <div class="file-upload-icon">🖼️</div>
+                <div class="file-upload-text">
+                  Click or drag image to upload
+                </div>
+                <div class="file-upload-hint">
+                  Supports JPG, PNG, GIF (max 5MB)
+                </div>
+                <input
+                  type="file"
+                  class="file-upload-input"
+                  id="banner"
+                  accept="image/jpeg,image/png,image/gif,image/webp"
+                />
+              </div>
+
+              <!-- File Preview -->
+              <div class="file-preview" id="filePreview">
+                <div class="file-preview-icon">📸</div>
+                <div class="file-preview-info">
+                  <div class="file-preview-name" id="fileName">image.jpg</div>
+                  <div id="fileSize">0 MB</div>
+                </div>
+                <button
+                  type="button"
+                  class="file-preview-remove"
+                  onclick="removeFile()"
+                >
+                  Remove
+                </button>
+              </div>
+              <div class="form-error" id="bannerError"></div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn-secondary"
+                onclick="window.location.href = 'events.html'"
+              >
+                Cancel
+              </button>
+              <button type="submit" class="btn-primary" id="submitBtn">
+                <span id="submitText">Create Event</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Success State (hidden initially) -->
+        <div id="successContainer" style="display: none">
+          <div class="success-state">
+            <div class="success-icon">🎉</div>
+            <h3>Event Created!</h3>
+            <p>Your event has been successfully created and is now live.</p>
+
+            <div class="success-details" id="successDetails">
+              <!-- Will be populated dynamically -->
+            </div>
+
+            <div style="display: flex; gap: 1rem; justify-content: center">
+              <a href="create-event.html" class="btn-secondary"
+                >Create Another</a
+              >
+              <a href="events.html" class="btn-success">View All Events</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+   JAVASCRIPT
+════════════════════════════════ -->
+    <script>
+      /* ══════ CONFIG ══════ */
+      const BASE_URL = "https://aws-buk-event-manager-api.vercel.app";
+      const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+      const ALLOWED_TYPES = [
+        "image/jpeg",
+        "image/png",
+        "image/gif",
+        "image/webp",
+      ];
+
+      /* ══════ STATE ══════ */
+      let selectedFile = null;
+
+      /* ══════ CURSOR ══════ */
+      const cur = document.getElementById("cur");
+      const curR = document.getElementById("curR");
+      let mx = 0,
+        my = 0,
+        rx = 0,
+        ry = 0;
+
+      document.addEventListener("mousemove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        cur.style.left = mx + "px";
+        cur.style.top = my + "px";
+      });
+
+      (function animCursor() {
+        rx += (mx - rx) * 0.13;
+        ry += (my - ry) * 0.13;
+        curR.style.left = rx + "px";
+        curR.style.top = ry + "px";
+        requestAnimationFrame(animCursor);
+      })();
+
+      document.querySelectorAll("a,button").forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          curR.style.transform = "translate(-50%,-50%) scale(2)";
+          curR.style.opacity = ".4";
+        });
+        el.addEventListener("mouseleave", () => {
+          curR.style.transform = "translate(-50%,-50%) scale(1)";
+          curR.style.opacity = ".6";
+        });
+      });
+
+      /* ══════ TOAST ══════ */
+      function showToast(msg, type = "info", duration = 3500) {
+        const tc = document.getElementById("toastContainer");
+        const icons = { success: "✓", error: "✕", info: "✦" };
+        const t = document.createElement("div");
+        t.className = `toast ${type}`;
+        t.innerHTML = `<span>${icons[type] || "✦"}</span>${msg}`;
+        tc.appendChild(t);
+        setTimeout(() => {
+          t.classList.add("fade-out");
+          setTimeout(() => t.remove(), 400);
+        }, duration);
+      }
+
+      /* ══════ CAPACITY CONTROLS ══════ */
+      function incrementCapacity() {
+        const input = document.getElementById("capacity");
+        const current = parseInt(input.value) || 0;
+        if (current < 1000) {
+          input.value = current + 1;
+        }
+      }
+
+      function decrementCapacity() {
+        const input = document.getElementById("capacity");
+        const current = parseInt(input.value) || 0;
+        if (current > 1) {
+          input.value = current - 1;
+        }
+      }
+
+      // Prevent manual input of invalid values
+      document
+        .getElementById("capacity")
+        .addEventListener("input", function (e) {
+          let value = parseInt(this.value);
+          if (isNaN(value) || value < 1) this.value = 1;
+          if (value > 1000) this.value = 1000;
+        });
+
+      /* ══════ FILE UPLOAD HANDLING ══════ */
+      const fileInput = document.getElementById("banner");
+      const fileUploadArea = document.getElementById("fileUploadArea");
+      const filePreview = document.getElementById("filePreview");
+      const fileName = document.getElementById("fileName");
+      const fileSize = document.getElementById("fileSize");
+
+      fileInput.addEventListener("change", handleFileSelect);
+
+      // Drag and drop handling
+      fileUploadArea.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        fileUploadArea.style.borderColor = "var(--gold)";
+        fileUploadArea.style.background = "rgba(245, 166, 35, 0.04)";
+      });
+
+      fileUploadArea.addEventListener("dragleave", (e) => {
+        e.preventDefault();
+        fileUploadArea.style.borderColor = "var(--border2)";
+        fileUploadArea.style.background = "rgba(255, 255, 255, 0.02)";
+      });
+
+      fileUploadArea.addEventListener("drop", (e) => {
+        e.preventDefault();
+        fileUploadArea.style.borderColor = "var(--border2)";
+        fileUploadArea.style.background = "rgba(255, 255, 255, 0.02)";
+
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          fileInput.files = files;
+          handleFileSelect({ target: { files: files } });
+        }
+      });
+
+      function handleFileSelect(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Validate file type
+        if (!ALLOWED_TYPES.includes(file.type)) {
+          showToast("Invalid file type. Please upload an image.", "error");
+          fileInput.value = "";
+          return;
+        }
+
+        // Validate file size
+        if (file.size > MAX_FILE_SIZE) {
+          showToast("File size must be less than 5MB", "error");
+          fileInput.value = "";
+          return;
+        }
+
+        selectedFile = file;
+
+        // Update UI
+        fileUploadArea.classList.add("has-file");
+        fileName.textContent = file.name;
+        fileSize.textContent = (file.size / (1024 * 1024)).toFixed(2) + " MB";
+        filePreview.classList.add("show");
+      }
+
+      function removeFile() {
+        selectedFile = null;
+        fileInput.value = "";
+        fileUploadArea.classList.remove("has-file");
+        filePreview.classList.remove("show");
+      }
+
+      /* ══════ FORM VALIDATION ══════ */
+      function clearErrors() {
+        [
+          "title",
+          "description",
+          "startDate",
+          "endDate",
+          "location",
+          "capacity",
+          "banner",
+        ].forEach((id) => {
+          const errorEl = document.getElementById(id + "Error");
+          if (errorEl) errorEl.textContent = "";
+          const inputEl = document.getElementById(id);
+          if (inputEl) inputEl.classList.remove("error");
+        });
+      }
+
+      function validateForm() {
+        clearErrors();
+        let isValid = true;
+
+        const title = document.getElementById("title").value.trim();
+        const description = document.getElementById("description").value.trim();
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+        const location = document.getElementById("location").value.trim();
+        const capacity = document.getElementById("capacity").value;
+
+        // Title validation
+        if (!title) {
+          document.getElementById("titleError").textContent =
+            "Title is required";
+          document.getElementById("title").classList.add("error");
+          isValid = false;
+        }
+
+        // Description validation
+        if (!description) {
+          document.getElementById("descriptionError").textContent =
+            "Description is required";
+          document.getElementById("description").classList.add("error");
+          isValid = false;
+        }
+
+        // Date validation
+        if (!startDate) {
+          document.getElementById("startDateError").textContent =
+            "Start date is required";
+          document.getElementById("startDate").classList.add("error");
+          isValid = false;
+        }
+
+        if (!endDate) {
+          document.getElementById("endDateError").textContent =
+            "End date is required";
+          document.getElementById("endDate").classList.add("error");
+          isValid = false;
+        }
+
+        if (startDate && endDate) {
+          const start = new Date(startDate);
+          const end = new Date(endDate);
+
+          if (end <= start) {
+            document.getElementById("endDateError").textContent =
+              "End date must be after start date";
+            document.getElementById("endDate").classList.add("error");
+            isValid = false;
+          }
+
+          if (start < new Date()) {
+            document.getElementById("startDateError").textContent =
+              "Start date cannot be in the past";
+            document.getElementById("startDate").classList.add("error");
+            isValid = false;
+          }
+        }
+
+        // Location validation
+        if (!location) {
+          document.getElementById("locationError").textContent =
+            "Location is required";
+          document.getElementById("location").classList.add("error");
+          isValid = false;
+        }
+
+        // Capacity validation
+        const capNum = parseInt(capacity);
+        if (!capacity || isNaN(capNum) || capNum < 1) {
+          document.getElementById("capacityError").textContent =
+            "Capacity must be at least 1";
+          document.getElementById("capacity").classList.add("error");
+          isValid = false;
+        }
+
+        return isValid;
+      }
+
+      /* ══════ CREATE EVENT ══════ */
+      async function createEvent(event) {
+        event.preventDefault();
+
+        if (!validateForm()) {
+          showToast("Please fix the errors in the form", "error");
+          return;
+        }
+
+        const submitBtn = document.getElementById("submitBtn");
+        const submitText = document.getElementById("submitText");
+        submitBtn.disabled = true;
+        submitText.innerHTML = '<span class="spinner"></span> Creating...';
+
+        try {
+          const formData = new FormData();
+          formData.append(
+            "title",
+            document.getElementById("title").value.trim(),
+          );
+          formData.append(
+            "description",
+            document.getElementById("description").value.trim(),
+          );
+          formData.append(
+            "startDate",
+            new Date(document.getElementById("startDate").value).toISOString(),
+          );
+          formData.append(
+            "endDate",
+            new Date(document.getElementById("endDate").value).toISOString(),
+          );
+          formData.append(
+            "location",
+            document.getElementById("location").value.trim(),
+          );
+          formData.append(
+            "capacity",
+            parseInt(document.getElementById("capacity").value),
+          );
+
+          if (selectedFile) {
+            formData.append("banner", selectedFile);
+          }
+
+          const response = await fetch(`${BASE_URL}/events`, {
+            method: "POST",
+            body: formData,
+          });
+
+          const data = await response.json();
+
+          if (response.ok && data.success) {
+            // Show success state
+            document.getElementById("formContainer").style.display = "none";
+
+            // Populate success details
+            const successDetails = document.getElementById("successDetails");
+            successDetails.innerHTML = `
+              <div class="success-details-item">
+                <div class="success-details-label">Title</div>
+                <div class="success-details-value">${data.data.title}</div>
+              </div>
+              <div class="success-details-item">
+                <div class="success-details-label">Date</div>
+                <div class="success-details-value">${new Date(data.data.startDate).toLocaleString()}</div>
+              </div>
+              <div class="success-details-item">
+                <div class="success-details-label">Location</div>
+                <div class="success-details-value">${data.data.location}</div>
+              </div>
+              <div class="success-details-item">
+                <div class="success-details-label">Capacity</div>
+                <div class="success-details-value">${data.data.capacity} attendees</div>
+              </div>
+            `;
+
+            document.getElementById("successContainer").style.display = "block";
+            showToast("Event created successfully!", "success");
+          } else {
+            throw new Error(
+              data.message || data.error || "Failed to create event",
+            );
+          }
+        } catch (error) {
+          console.error("Error creating event:", error);
+          showToast(error.message, "error");
+          submitBtn.disabled = false;
+          submitText.textContent = "Create Event";
+        }
+      }
+
+      /* ══════ SET DEFAULT DATES ══════ */
+      function setDefaultDates() {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
+        const startDate = new Date(now);
+        startDate.setDate(startDate.getDate() + 7); // Default to 7 days from now
+        startDate.setHours(10, 0, 0, 0); // 10:00 AM
+
+        const endDate = new Date(startDate);
+        endDate.setHours(15, 0, 0, 0); // 3:00 PM
+
+        document.getElementById("startDate").value = startDate
+          .toISOString()
+          .slice(0, 16);
+        document.getElementById("endDate").value = endDate
+          .toISOString()
+          .slice(0, 16);
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", setDefaultDates);
+    </script>
+  </body>
+</html>
