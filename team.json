@@ -1,0 +1,204 @@
+{
+  "current": {
+    "year": "2025",
+    "season": "Executive Council",
+    "members": [
+      {
+        "id": "001",
+        "name": "Abdulrahman Musa",
+        "role": "Club President",
+        "department": "Computer Science",
+        "level": "400L",
+        "bio": "Leading AWS Cloud Club BUK with a passion for cloud infrastructure and developer communities. AWS Certified Solutions Architect.",
+        "photo": "assets/team/abdulrahman.jpg",
+        "badge": "President",
+        "skills": ["AWS", "Cloud Architecture", "Leadership", "DevOps"],
+        "social": {
+          "linkedin": "https://linkedin.com/in/abdulrahman-musa",
+          "twitter": "https://twitter.com/abdulrahman_dev",
+          "github": "https://github.com/abdulrahmanmusa"
+        }
+      },
+      {
+        "id": "002",
+        "name": "Fatima Suleiman",
+        "role": "Vice President",
+        "department": "Software Engineering",
+        "level": "400L",
+        "bio": "Driving growth and community programs at Cloud Club BUK. Passionate about making cloud tech accessible to every student.",
+        "photo": "assets/team/fatima.jpg",
+        "badge": "VP",
+        "skills": ["Community Building", "AWS", "Project Management", "UI/UX"],
+        "social": {
+          "linkedin": "https://linkedin.com/in/fatima-suleiman",
+          "twitter": "https://twitter.com/fatima_codes",
+          "github": "https://github.com/fatimasuleiman"
+        }
+      },
+      {
+        "id": "003",
+        "name": "Yusuf Ibrahim",
+        "role": "Technical Lead",
+        "department": "Computer Engineering",
+        "level": "300L",
+        "bio": "Building cloud-native solutions and running technical workshops. AWS Certified Developer and open-source contributor.",
+        "photo": "assets/team/yusuf.jpg",
+        "badge": "Tech Lead",
+        "skills": ["AWS Lambda", "Serverless", "Node.js", "Python", "CI/CD"],
+        "social": {
+          "linkedin": "https://linkedin.com/in/yusuf-ibrahim-dev",
+          "twitter": "https://twitter.com/yusuf_cloud",
+          "github": "https://github.com/yusufibrahim"
+        }
+      },
+      {
+        "id": "004",
+        "name": "Zainab Abubakar",
+        "role": "Events & Outreach Lead",
+        "department": "Information Technology",
+        "level": "300L",
+        "bio": "Orchestrating events that bring students together to learn and network. Believes every great engineer started with a great community.",
+        "photo": "assets/team/zainab.jpg",
+        "badge": "Events Lead",
+        "skills": ["Event Planning", "Marketing", "Public Speaking", "AWS"],
+        "social": {
+          "linkedin": "https://linkedin.com/in/zainab-abubakar",
+          "twitter": "https://twitter.com/zainab_tech",
+          "github": "https://github.com/zainababubakar"
+        }
+      },
+      {
+        "id": "005",
+        "name": "Ibrahim Aliyu",
+        "role": "Community & Growth Lead",
+        "department": "Computer Science",
+        "level": "200L",
+        "bio": "Growing the cloud community one student at a time. Focused on onboarding, mentorship, and member retention programs.",
+        "photo": "assets/team/ibrahim.jpg",
+        "badge": "Community Lead",
+        "skills": ["Community Management", "Content Creation", "AWS", "Social Media"],
+        "social": {
+          "linkedin": "https://linkedin.com/in/ibrahim-aliyu",
+          "twitter": "https://twitter.com/ibrahim_aliyu",
+          "github": "https://github.com/ibrahimaliyu"
+        }
+      },
+      {
+        "id": "006",
+        "name": "Hauwa Bello",
+        "role": "Design & Creative Lead",
+        "department": "Computer Science",
+        "level": "300L",
+        "bio": "Crafting the visual identity of AWS Cloud Club BUK. Designer by day, cloud enthusiast by choice.",
+        "photo": "assets/team/hauwa.jpg",
+        "badge": "Design Lead",
+        "skills": ["Figma", "Brand Design", "AWS Amplify", "Frontend Dev"],
+        "social": {
+          "linkedin": "https://linkedin.com/in/hauwa-bello",
+          "twitter": "https://twitter.com/hauwa_designs",
+          "github": "https://github.com/hauwabello"
+        }
+      },
+      {
+        "id": "007",
+        "name": "Muhammad Garba",
+        "role": "DevOps & Labs Lead",
+        "department": "Computer Engineering",
+        "level": "400L",
+        "bio": "Setting up cloud labs and managing infrastructure for the club. Passionate about automation and Infrastructure as Code.",
+        "photo": "assets/team/muhammad.jpg",
+        "badge": "DevOps Lead",
+        "skills": ["Terraform", "Docker", "Kubernetes", "AWS ECS", "CI/CD"],
+        "social": {
+          "linkedin": "https://linkedin.com/in/muhammad-garba",
+          "twitter": "https://twitter.com/muhammad_devops",
+          "github": "https://github.com/muhammadgarba"
+        }
+      },
+      {
+        "id": "008",
+        "name": "Aisha Usman",
+        "role": "Secretary & Communications Lead",
+        "department": "Information Technology",
+        "level": "200L",
+        "bio": "Keeping the club organized and the community informed. Handles all official communications, newsletters, and documentation.",
+        "photo": "assets/team/aisha.jpg",
+        "badge": "Secretary",
+        "skills": ["Communication", "Documentation", "AWS", "Content Writing"],
+        "social": {
+          "linkedin": "https://linkedin.com/in/aisha-usman",
+          "twitter": "https://twitter.com/aisha_usman",
+          "github": "https://github.com/aishausman"
+        }
+      }
+    ]
+  },
+  "alumni": [
+    {
+      "year": "2024",
+      "season": "Founding Council",
+      "members": [
+        {
+          "id": "a001",
+          "name": "Musa Abdullahi",
+          "role": "Founding President",
+          "department": "Computer Science",
+          "graduatedYear": "2024",
+          "currentRole": "Cloud Engineer @ Access Bank",
+          "photo": "assets/team/alumni/musa.jpg",
+          "bio": "Founded AWS Cloud Club BUK in 2023. Now a Cloud Engineer helping Nigerian enterprises migrate to AWS.",
+          "social": {
+            "linkedin": "https://linkedin.com/in/musa-abdullahi",
+            "twitter": "https://twitter.com/musa_cloud",
+            "github": "https://github.com/musaabdullahi"
+          }
+        },
+        {
+          "id": "a002",
+          "name": "Khadijah Mohammed",
+          "role": "Founding VP",
+          "department": "Software Engineering",
+          "graduatedYear": "2024",
+          "currentRole": "Software Dev @ Paystack",
+          "photo": "assets/team/alumni/khadijah.jpg",
+          "bio": "Co-founded the club and ran the first Build Day event. Now building payment infrastructure at Paystack.",
+          "social": {
+            "linkedin": "https://linkedin.com/in/khadijah-mohammed",
+            "twitter": "https://twitter.com/khadijah_dev",
+            "github": "https://github.com/khadijahmo"
+          }
+        },
+        {
+          "id": "a003",
+          "name": "Sani Danladi",
+          "role": "Founding Technical Lead",
+          "department": "Computer Engineering",
+          "graduatedYear": "2024",
+          "currentRole": "DevOps Engineer @ Interswitch",
+          "photo": "assets/team/alumni/sani.jpg",
+          "bio": "Set up the first cloud labs for BUK students. Now automating infrastructure at Interswitch.",
+          "social": {
+            "linkedin": "https://linkedin.com/in/sani-danladi",
+            "twitter": "https://twitter.com/sani_devops",
+            "github": "https://github.com/sanidanladi"
+          }
+        },
+        {
+          "id": "a004",
+          "name": "Ramatu Bello",
+          "role": "Founding Events Lead",
+          "department": "Information Technology",
+          "graduatedYear": "2024",
+          "currentRole": "Product Manager @ Flutterwave",
+          "photo": "assets/team/alumni/ramatu.jpg",
+          "bio": "Organized the club's first hackathon with 80+ participants. Now a PM shaping fintech products.",
+          "social": {
+            "linkedin": "https://linkedin.com/in/ramatu-bello",
+            "twitter": "https://twitter.com/ramatu_pm",
+            "github": "https://github.com/ramatubello"
+          }
+        }
+      ]
+    }
+  ]
+}
